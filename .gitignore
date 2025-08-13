@@ -1,0 +1,12 @@
+/.idea/
+.DS_Store
+node_modules/
+.npm
+.pnpm
+*.log
+.env
+.env.local
+.env*.local
+._*
+.Spotlight-V100
+.Trashes
