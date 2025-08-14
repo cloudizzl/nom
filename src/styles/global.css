@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "Lobster";
+    src: url("../assets/fonts/LobsterFuguRegular-JpaJ7.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Glacial";
+    src: url("../assets/fonts/GlacialIndifference-Regular.otf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Glacial";
+    src: url("../assets/fonts/GlacialIndifference-Bold.otf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+* {
+    font-family: "Glacial", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0 60px;
+    background-color: var(--color-background);
+}
+

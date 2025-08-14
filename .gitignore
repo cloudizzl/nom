@@ -10,3 +10,8 @@ node_modules/
 ._*
 .Spotlight-V100
 .Trashes
+/CHANGELOG.md
+/LICENSE.md
+/pocketbase
+/pocketbase_0.22.4_darwin_amd64.zip
+/pb_data/

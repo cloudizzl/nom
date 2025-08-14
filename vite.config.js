@@ -6,4 +6,7 @@ export default defineConfig({
     server: {
         port: 7000,
     },
+    optimizeDeps: {
+        exclude: ["pocketbase"]
+    }
 })

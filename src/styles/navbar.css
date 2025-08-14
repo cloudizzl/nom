@@ -1,0 +1,33 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    height: 70px;
+}
+
+.logo {
+    font-family: "Lobster", sans-serif;
+    font-size: 50px;
+    color: var(--color-blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-link {
+    padding: 5px 20px;
+    text-decoration: none;
+    color: var(--color-background);
+    background-color: var(--color-black);
+    border-radius: 10px;
+    transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: var(--color-blue);
+}
