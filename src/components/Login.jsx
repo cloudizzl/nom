@@ -13,7 +13,13 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+
+        if (!username || !password) {
+            setError("Please fill in all fields");
+            return;
+        }
+
+        setError("");
         setLoading(true);
 
         try {
@@ -24,45 +30,62 @@ const Login = () => {
             navigate("/dashboard");
             console.log("Successfully logged in", username);
         } catch (error) {
-            setError(error.data?.message || "Login failed");
             console.log("Login error:", error.data);
+            setError(error.data?.message || "Invalid username or password");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-       <div className="login-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="login-field">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        className="login-text"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                        autoFocus
-                    />
-                </div>
+        <div className="login-container">
+            <h2 className="login-heading">login</h2>
 
-                <div className="login-field">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        className="login-text"
-                        type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}>
-                        (ō.Ô)
+            {error && <div className="error-message">{error}</div>}
+
+            <form onSubmit={handleSubmit}>
+                <div className="login-fields">
+                    <div className="login-field">
+                        <input
+                            className="login-text"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            autoFocus
+                            placeholder="username"
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <div className="login-field password-container">
+                        <input
+                            className="login-text"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="password"
+                            disabled={loading}
+                        />
+                    </div>
+                    <button
+                        className="show-password-button"
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? "(⊙_⊙)" : "(ᴗ_ ᴗ。)"}
                     </button>
                 </div>
-                {error && <div className="error-message">{error}</div>}
-                <button type="submit" disabled={loading}>
-                    {loading ? "Logging in..." : "Login"}
+
+                <div className="forgot-password">
+                    <a href="/forgot-password">forgot password?</a>
+                </div>
+
+                <button
+                    className="login-button"
+                    type="submit"
+                    disabled={loading}
+                >
+                    {loading ? "logging in..." : "login"}
                 </button>
             </form>
         </div>

@@ -1,36 +1,94 @@
+.login-heading {
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: "Lobster", sans-serif;
+    color: var(--color-black);
+    font-size: 36px;
+}
+
 .login-container {
-    width: 300px;
-    height: 350px;
-    position: relative;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    border: 1px solid #fff;
+    display: flex;
+    flex-direction: column; /* stack elements */
+    justify-content: center; /* horizontal */
+    align-items: center; /* vertical */
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .login-field {
-    max-width: 250px;
-    margin: 0 auto;
-    text-align: center;
+    margin: 5px;
+    width: 100%;
 }
 
 .login-text {
-    padding: 10px;
-    margin-top: 25px;
+    width: 100%;
+    padding: 5px;
     border-radius: 10px;
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    font-size: 13px;
+    border: 1px solid var(--color-grey);
+    transition: border-color 0.3s;
+}
+
+.login-text:focus {
+    outline: none;
+    border-color: var(--color-blue);
+}
+
+.show-password-button {
+    align-self: flex-end;
+    border-radius: 10px;
+    border-style: solid;
+    transition: 0.3s;
+    color: var(--color-black);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.show-password-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.error-message {
+    color: palevioletred;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 10px;
+}
+
+.forgot-password {
+    text-align: right;
+}
+
+.forgot-password a {
+    color: var(--color-blue);
+    text-decoration: none;
+    font-size: 10px;
 }
 
 .login-button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: none;
+    width: 100%;
+    padding: 5px;
     border-radius: 10px;
-    background: transparent;
-    color: #fff;
-    font-size: 13px;
+    background-color: var(--color-blue);
+    border-style: solid;
+    transition: 0.3s;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 15px;
 }
+
+.login-button:hover {
+    background-color: var(--color-blue);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
