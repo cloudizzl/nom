@@ -1,5 +1,6 @@
 import React from 'react'
 import Map from "../components/Map";
+import Registration from "../components/Registration";
 
 
 function Home() {

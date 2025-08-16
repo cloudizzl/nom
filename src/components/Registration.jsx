@@ -1,59 +1,122 @@
 import {useState} from "react";
+import {pb} from "../lib/pocketbase";
+import {useNavigate} from "react-router-dom";
 
 const Registration = () => {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+        setIsLoading(true);
+
+        if (!email || !username || !password) {
+            setError("Please fill in all fields");
+            setIsLoading(false);
+            return;
+        }
+
+        if (password !== passwordConfirm) {
+            setError("Passwords don't match");
+            setIsLoading(false);
+            return;
+        }
+
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters");
+            setIsLoading(false);
+            return;
+        }
+
         try {
             await pb.collection("users").create({
                 email,
                 username,
                 password,
-                passwordConfirm: password,
+                passwordConfirm,
             });
+
             alert("User successfully created!");
+            navigate("/login");
         } catch (error) {
-            setError(error.message);
+            console.error("Registration error:", error);
+            setError(error.message || "Registration failed. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="registration">
+        <div className="login-container">
+            <h2 className="login-heading">register</h2>
+
+            {error && <div className="error-message">{error}</div>}
+
             <form onSubmit={handleSubmit}>
-                <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                />
+                <div className="login-fields">
+                    <div className="login-field">
+                        <input
+                            className="login-text"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="email"
+                            disabled={loading}
+                        />
+                    </div>
 
-                <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-                />
+                    <div className="login-field">
+                        <input
+                            className="login-text"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="username"
+                            disabled={loading}
+                        />
+                    </div>
 
-                <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                />
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                    <div className="login-field password-container">
+                        <input
+                            className="login-text"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="password"
+                            disabled={loading}
+                        />
+                    </div>
+                    <div className="login-field password-container">
+                        <input
+                            className="login-text"
+                            type={showPassword ? 'text' : 'password'}
+                            value={passwordConfirm}
+                            onChange={(e) => setPasswordConfirm(e.target.value)}
+                            placeholder="confirm password"
+                            disabled={loading}
+                        />
+                    </div>
+                    <button
+                        className="show-password-button"
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? "(⊙_⊙)" : "(ᴗ_ ᴗ。)"}
+                    </button>
+                </div>
 
                 <button
                     className="login-button"
                     type="submit"
                 >
-                    Register
+                    register
                 </button>
             </form>
         </div>

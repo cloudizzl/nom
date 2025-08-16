@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import "../styles/login.css";
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [identity, setIdentity] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!username || !password) {
+        if (!identity || !password) {
             setError("Please fill in all fields");
             return;
         }
@@ -23,17 +23,32 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const user = await pb.collection('users').getFirstListItem(
-                '"username="${username}"'
-            );
-            await pb.collection("users").authWithPassword(user.email, password);
+            await pb.collection('users').authWithPassword(identity, password);
+
             navigate("/dashboard");
-            console.log("Successfully logged in", username);
-        } catch (error) {
-            console.log("Login error:", error.data);
-            setError(error.data?.message || "Invalid username or password");
-        } finally {
-            setLoading(false);
+            console.log("Successfully logged in", identity);
+        } catch (authError) {
+            console.log("Direct auth failed, trying fallback...", authError);
+
+            try {
+                const users = await pb.collection('users').getList(1, 1, {
+                    filter: `username = "${identity}" || email = "${identity}"`,
+                    $autoCancel: false
+                });
+
+                if (users.items.length === 0) {
+                    throw new Error("User not found");
+                }
+
+                const user = users.items[0];
+                await pb.collection('users').authWithPassword(user.email, password);
+                navigate("/dashboard");
+            } catch (error) {
+                console.log("Login error:", error.data);
+                setError(error.data?.message || "Invalid username or password");
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -49,8 +64,8 @@ const Login = () => {
                         <input
                             className="login-text"
                             type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={identity}
+                            onChange={(e) => setIdentity(e.target.value)}
                             autoFocus
                             placeholder="username"
                             disabled={loading}
@@ -66,14 +81,14 @@ const Login = () => {
                             placeholder="password"
                             disabled={loading}
                         />
+                        <button
+                            className="show-password-button"
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? "(⊙_⊙)" : "(ᴗ_ ᴗ。)"}
+                        </button>
                     </div>
-                    <button
-                        className="show-password-button"
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                    >
-                        {showPassword ? "(⊙_⊙)" : "(ᴗ_ ᴗ。)"}
-                    </button>
                 </div>
 
                 <div className="forgot-password">

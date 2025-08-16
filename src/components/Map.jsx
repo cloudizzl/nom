@@ -4,6 +4,7 @@ const Map = () => {
     return (
         <MapContainer
             center={[52.5200, 13.4050]}
+            // center={[51.050407, 13.737262]} dd
             zoom={13}
             style={{height:'500px', width:'100%'}}
         >
