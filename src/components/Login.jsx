@@ -25,7 +25,7 @@ const Login = () => {
         try {
             await pb.collection('users').authWithPassword(identity, password);
 
-            navigate("/dashboard");
+            navigate("/home");
             console.log("Successfully logged in", identity);
         } catch (authError) {
             console.log("Direct auth failed, trying fallback...", authError);
@@ -42,7 +42,7 @@ const Login = () => {
 
                 const user = users.items[0];
                 await pb.collection('users').authWithPassword(user.email, password);
-                navigate("/dashboard");
+                navigate("/home");
             } catch (error) {
                 console.log("Login error:", error.data);
                 setError(error.data?.message || "Invalid username or password");

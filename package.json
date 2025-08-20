@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "leaflet": "^1.9.4",
+    "leaflet-geosearch": "^4.2.0",
     "pocketbase": "^0.26.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
