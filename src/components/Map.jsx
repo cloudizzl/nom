@@ -2,6 +2,7 @@ import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import SearchField from "./SearchField";
 import {useRef, useState} from "react";
 import "../styles/map.css"
+import Scrollbar from "./Scrollbar";
 
 const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
 const ICON_MAPPING = {
@@ -53,39 +54,74 @@ const Map = () => {
         if (!location.display_name) return "unknown location";
 
         const typeIcon = ICON_MAPPING[location.type] || "❓";
-        const { road: street, house_number: number, suburb: district, borough: county, city, postcode: zip } = location.address || {};
+        const {
+            road: street,
+            house_number: number,
+            suburb: district,
+            borough: county,
+            city,
+            postcode: zip
+        } = location.address || {};
+
+        const name = location.display_name.split(',')[0];
 
         return (
-            <div className="location-parts">
-                <div className="location-icon">{typeIcon}</div>
-                <div className="location-part name">{location.display_name.split(',')[0]}</div>
-                <div className="location-part street">{street}</div>
-                <div className="location-part number">{number}</div>
-                <div className="location-part district">{district}</div>
-                <div className="location-part county">{county}</div>
-                <div className="location-part city">{city}</div>
-                <div className="location-part zip">{zip}</div>
+            <div className="location-card">
+                <div className="location-header">
+                    <span className="location-icon">{typeIcon}</span>
+                    <span className="location-name">{name}</span>
+                </div>
+
+                <div className="location-details">
+                    {street && number && (
+                        <div className="location-address-line">
+                            {street} {number}
+                        </div>
+                    )}
+
+                    {/*                    {county && district && (
+                        <div className="location-address-line">
+                            {county}, {district}
+                        </div>
+                    )}*/}
+
+                    {district && (
+                        <div className="location-address-line">
+                            {district}
+                        </div>
+                    )}
+
+                    {city && zip && (
+                        <div className="location-address-line">
+                            {city} {zip}
+                        </div>
+                    )}
+                </div>
             </div>
         );
     };
 
     return (
-        <>
+        <div>
             <SearchField onSearch={handleSearch}/>
 
-            {searchResults.length > 0 && (
-                <div className="search-results">
-                    {searchResults.map((result) => (
-                        <div
-                            key={result.place_id}
-                            onClick={() => handleResultClick(result)}
-                            className="result-item"
-                        >
-                            {formatLocation(result)}
-                        </div>
-                    ))}
-                </div>
-            )}
+            <div className="location-container">
+                {searchResults.length > 0 && (
+                    <div className="search-results">
+                        <Scrollbar>
+                        {searchResults.map((result) => (
+                            <div
+                                key={result.place_id}
+                                onClick={() => handleResultClick(result)}
+                                className="result-item"
+                            >
+                                {formatLocation(result)}
+                            </div>
+                        ))}
+                        </Scrollbar>
+                    </div>
+                )}
+            </div>
 
             <MapContainer
                 center={[52.5200, 13.4050]}
@@ -102,7 +138,7 @@ const Map = () => {
                 </Marker>
 
             </MapContainer>
-        </>
+        </div>
     );
 };
 

@@ -1,37 +1,96 @@
-.location-parts {
+.location-container {
+    margin-bottom: 24px;
+}
+
+/*.search-results {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    gap: 15px;*/
+/*}*/
+
+/*.results-title {*/
+/*    margin: 0 0 15px 0;*/
+/*    font-size: 1.2rem;*/
+/*    color: var(--color-blue);*/
+/*    text-align: center;*/
+/*    padding-bottom: 10px;*/
+/*}*/
+
+.result-item {
+    flex: 0 0 auto;
+    width: 200px;
+    padding: 16px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    border: 2px solid var(--color-dark-grey);
+    border-radius: 12px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.result-item:hover {
+    background-color: var(--color-beige-light);
+    border-color: var(--color-beige);
+    transform: translateY(-3px);
+}
+
+.result-item.selected {
+    background-color: #e6f2ff;
+    border: 3px solid #4299e1;
+}
+
+.location-card {
     display: flex;
+    flex-direction: column;
 }
 
-.location-part {
-    margin: 0 5px;
+.location-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-dark-grey);
 }
 
-.name {
+.location-icon {
+    font-size: 1.5rem;
+    padding: 8px;
+    background-color: var(--color-grey);
+    border-radius: 50%;
+    border: 2px solid var(--color-dark-grey);
+}
+
+.location-name {
     font-weight: bold;
-    color: darkred;
+    font-size: 1rem;
+    color: #2c3e50;
 }
 
-.street {
-    color: darkgreen;
+.location-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.number {
-    color: yellow;
+.location-address-line {
+    display: flex;
+    font-size: 0.95rem;
+    color: var(--color-black);
+    padding: 0 0;
 }
 
-.district {
-    color: blue;
+.search {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--color-blue);
+    border-radius: 12px;
+    background-color: white;
+    font-size: 1rem;
+    color: #111827;
+    transition: all 0.2s ease;
 }
 
-.county {
-    color: orange;
+.search:focus {
+    border: 2px solid var(--color-green);
+    transform: translateY(-3px);
 }
-
-.city {
-    color: springgreen;
-}
-
-.zip {
-    color: fuchsia;
-}
-

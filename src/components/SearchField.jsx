@@ -1,3 +1,5 @@
+import "../styles/map.css"
+
 const SearchField = ({onSearch}) => {
 
     const handleSearch = (e) => {
@@ -10,9 +12,10 @@ const SearchField = ({onSearch}) => {
     return (
         <form onSubmit={handleSearch}>
             <input
-                name="search"
+                className="search"
                 type="text"
                 placeholder="search..."
+                name="search"
             />
         </form>
     );

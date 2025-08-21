@@ -32,3 +32,12 @@ body {
     background-color: var(--color-background);
 }
 
+.scroll-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+
