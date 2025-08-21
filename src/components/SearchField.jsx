@@ -1,20 +1,21 @@
-const SearchField = ({ onSearch }) => {
+const SearchField = ({onSearch}) => {
 
-    const handleSearch = (event) => {
-        const text = event.target.value;
-        onSearch(text)
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const searchValue = formData.get("search");
+        onSearch(searchValue);
     }
 
     return (
-        <>
-            <input onChange={handleSearch}
-                   type="text"
-                   placeholder="search..."
+        <form onSubmit={handleSearch}>
+            <input
+                name="search"
+                type="text"
+                placeholder="search..."
             />
-        </>
-    )
-
-
+        </form>
+    );
 };
 
 export default SearchField;

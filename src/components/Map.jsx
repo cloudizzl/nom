@@ -15,15 +15,19 @@ const Map = () => {
 
         try {
             const response = await fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=
-                ${encodeURIComponent(query)}&limit=5&viewbox=13.0,52.6,13.8,52.3&bounded=1`
+                `https://nominatim.openstreetmap.org/search?format=jsonv2&q=
+                ${encodeURIComponent(query)}&viewbox=13.0,52.6,13.8,52.3&bounded=1&addressdetails=1`
             );
 
             const data = await response.json();
-            setSearchResults(data);
 
+            const filteredData = data.filter(item =>
+                item.type === 'cafe' ||
+                item.type === 'restaurant'
+            );
+
+            setSearchResults(filteredData.length > 0 ? filteredData : data);
             console.log("api-response:", JSON.stringify(data, null, 2));
-
         } catch (error) {
             console.error("error searching for spots", error);
         }
@@ -41,22 +45,25 @@ const Map = () => {
             return "unknown location";
         }
 
+        // TODO: improve code
         const formattedLocation = location.display_name.replace(/, Germany$/, '').trim()
         const parts = formattedLocation
             .split(',')
             .map(part => part.trim());
 
         const name = parts[0];
-        const street = parts[1];
-        const district = parts[2];
-        const county = parts[3];
-        const city = parts[4];
-        const zip = parts[5];
+        const street = location.address.road;
+        const number = location.address.house_number;
+        const district = location.address.suburb;
+        const county = location.address.borough;
+        const city = location.address.city;
+        const zip = location.address.postcode;
 
         return (
             <div className="location-parts">
                 <div className="location-part name">{name}</div>
                 <div className="location-part street">{street}</div>
+                <div className="location-part number">{number}</div>
                 <div className="location-part district">{district}</div>
                 <div className="location-part county">{county}</div>
                 <div className="location-part city">{city}</div>

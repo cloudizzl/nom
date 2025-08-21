@@ -6,6 +6,31 @@
     margin: 0 5px;
 }
 
-.street {
-    font-weight: bold;
+.name {
+    color: darkred;
 }
+
+.street {
+    color: darkgreen;
+}
+
+.number {
+    color: yellow;
+}
+
+.district {
+    color: blue;
+}
+
+.county {
+    color: orange;
+}
+
+.city {
+    color: springgreen;
+}
+
+.zip {
+    color: fuchsia;
+}
+
