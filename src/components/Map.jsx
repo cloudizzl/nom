@@ -101,6 +101,17 @@ const Map = () => {
         );
     };
 
+    const createCustomIcon = (type) => {
+        const icon = ICON_MAPPING[type] || "❓";
+
+        return L.divIcon({
+            html: `<div>${icon}</div>`,
+            className: 'location-marker',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+        });
+    };
+
     return (
         <div>
             <SearchField onSearch={handleSearch}/>
@@ -109,15 +120,15 @@ const Map = () => {
                 {searchResults.length > 0 && (
                     <div className="search-results">
                         <Scrollbar>
-                        {searchResults.map((result) => (
-                            <div
-                                key={result.place_id}
-                                onClick={() => handleResultClick(result)}
-                                className="result-item"
-                            >
-                                {formatLocation(result)}
-                            </div>
-                        ))}
+                            {searchResults.map((result) => (
+                                <div
+                                    key={result.place_id}
+                                    onClick={() => handleResultClick(result)}
+                                    className="result-item"
+                                >
+                                    {formatLocation(result)}
+                                </div>
+                            ))}
                         </Scrollbar>
                     </div>
                 )}
@@ -133,10 +144,16 @@ const Map = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <Marker position={[52.5200, 13.4050]}>
-                    <Popup>Berlin!</Popup>
-                </Marker>
 
+                {searchResults.map((result) => (
+                    <Marker
+                        key={result.place_id}
+                        position={[parseFloat(result.lat), parseFloat(result.lon)]}
+                        icon={createCustomIcon(result.type)}
+                    >
+                        <Popup>{formatLocation(result)}</Popup>
+                    </Marker>
+                ))}
             </MapContainer>
         </div>
     );
