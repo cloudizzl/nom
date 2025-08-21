@@ -1,6 +1,6 @@
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
+import {MapContainer, TileLayer, Marker, Popup, useMap} from 'react-leaflet';
 import SearchField from "./SearchField";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import "../styles/map.css"
 import Scrollbar from "./Scrollbar";
 
@@ -17,9 +17,20 @@ const ICON_MAPPING = {
 };
 
 const Map = () => {
-    const [map, setMap] = useState(null);
+    const mapRef = useRef(null);
     const [searchResults, setSearchResults] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null);
+
+    useEffect(() => {
+        if (selectedResult && mapRef.current) {
+            const lat = parseFloat(selectedResult.lat);
+            const lon = parseFloat(selectedResult.lon);
+            mapRef.current.flyTo([lat, lon], 16, {
+                duration: 2,
+                easeLinearity: 1
+            });
+        }
+    }, [selectedResult])
 
     const handleSearch = async (searchValue) => {
         console.log("search value:", searchValue);
@@ -45,9 +56,6 @@ const Map = () => {
 
     const handleResultClick = (result) => {
         setSelectedResult(result);
-        const lat = parseFloat(result.lat);
-        const lon = parseFloat(result.lon);
-        map.flyTo([lat, lon], 15);
     }
 
     const formatLocation = (location) => {
@@ -139,6 +147,7 @@ const Map = () => {
                 // center={[51.050407, 13.737262]} dd
                 zoom={13}
                 style={{height: '500px', width: '100%'}}
+                ref={mapRef}
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
