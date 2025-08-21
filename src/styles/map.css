@@ -1,0 +1,11 @@
+.location-parts {
+    display: flex;
+}
+
+.location-part {
+    margin: 0 5px;
+}
+
+.street {
+    font-weight: bold;
+}
