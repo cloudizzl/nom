@@ -3,8 +3,19 @@ import SearchField from "./SearchField";
 import {useRef, useState} from "react";
 import "../styles/map.css"
 
-const Map = () => {
+const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
+const ICON_MAPPING = {
+    cafe: '🍵',
+    restaurant: '🍷',
+    fast_food: '🍟',
+    ice_cream: '🍦',
+    bar: '🥃',
+    biergarten: '🍺',
+    food_court: '🍱',
+    pub: '🥃'
+};
 
+const Map = () => {
     const [map, setMap] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null);
@@ -20,13 +31,11 @@ const Map = () => {
             );
 
             const data = await response.json();
+            const filteredData = data
+                .filter(location => VALID_TYPES
+                    .includes(location.type));
 
-            const filteredData = data.filter(item =>
-                item.type === 'cafe' ||
-                item.type === 'restaurant'
-            );
-
-            setSearchResults(filteredData.length > 0 ? filteredData : data);
+            setSearchResults(filteredData);
             console.log("api-response:", JSON.stringify(data, null, 2));
         } catch (error) {
             console.error("error searching for spots", error);
@@ -41,27 +50,15 @@ const Map = () => {
     }
 
     const formatLocation = (location) => {
-        if (!location.display_name) {
-            return "unknown location";
-        }
+        if (!location.display_name) return "unknown location";
 
-        // TODO: improve code
-        const formattedLocation = location.display_name.replace(/, Germany$/, '').trim()
-        const parts = formattedLocation
-            .split(',')
-            .map(part => part.trim());
-
-        const name = parts[0];
-        const street = location.address.road;
-        const number = location.address.house_number;
-        const district = location.address.suburb;
-        const county = location.address.borough;
-        const city = location.address.city;
-        const zip = location.address.postcode;
+        const typeIcon = ICON_MAPPING[location.type] || "❓";
+        const { road: street, house_number: number, suburb: district, borough: county, city, postcode: zip } = location.address || {};
 
         return (
             <div className="location-parts">
-                <div className="location-part name">{name}</div>
+                <div className="location-icon">{typeIcon}</div>
+                <div className="location-part name">{location.display_name.split(',')[0]}</div>
                 <div className="location-part street">{street}</div>
                 <div className="location-part number">{number}</div>
                 <div className="location-part district">{district}</div>
@@ -70,7 +67,7 @@ const Map = () => {
                 <div className="location-part zip">{zip}</div>
             </div>
         );
-    }
+    };
 
     return (
         <>
