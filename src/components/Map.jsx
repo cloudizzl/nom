@@ -3,7 +3,7 @@ import SearchField from "./SearchField";
 import {useEffect, useRef, useState} from "react";
 import "../styles/map.css"
 import Scrollbar from "./Scrollbar";
-import FoodReview from "./FoodReview";
+import FoodRating from "./FoodRating";
 
 const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
 const ICON_MAPPING = {
@@ -123,7 +123,7 @@ const Map = () => {
 
     return (
         <div>
-            <FoodReview />
+            <FoodRating />
             <SearchField onSearch={handleSearch}/>
 
             <div className="location-container">

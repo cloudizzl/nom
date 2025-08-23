@@ -1,9 +1,10 @@
 import '../styles/rating.css'
 import {useId, useState} from "react";
 
-const StarRating = ({}) => {
-    const [rating, setRating] = useState(null);
+const StarRating = ({ rating, setRating }) => {
     const [hover, setHover] = useState(null);
+
+    /* console.log('current rating:', rating, 'current hover:', hover); */
 
     return (
         <div className="star-rating-container">
@@ -14,10 +15,17 @@ const StarRating = ({}) => {
                             className="star-rating"
                             key={star}
                             onClick={() => {
-                                setRating(star)
+                                /* console.log('clicked on star:', star); */
+                                setRating(star);
                             }}
-                            onMouseEnter={() => setHover(star)}
-                            onMouseLeave={() => setHover(0)}
+                            onMouseEnter={() => {
+                                /* console.log('hovered over star:', star); */
+                                setHover(star);
+                            }}
+                            onMouseLeave={() => {
+                                /* console.log('left star:', hover); */
+                                setHover(0);
+                            }}
                         >
                             { star <= (hover || rating ) ? "★" : "☆"}
                         </button>
@@ -28,6 +36,4 @@ const StarRating = ({}) => {
     );
 }
 
-
 export default StarRating;
-
