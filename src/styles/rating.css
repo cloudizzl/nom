@@ -1,0 +1,10 @@
+.star-rating-container {
+    background-color: var(--color-green);
+    display: flex;
+    flex-direction: column;
+}
+
+.star-rating {
+    background-color: transparent;
+    border: none;
+}

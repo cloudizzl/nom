@@ -1,0 +1,2 @@
+### attributes location
+- price range (€, €€, €€€)
