@@ -15,3 +15,4 @@ node_modules/
 /pocketbase
 /pocketbase_0.22.4_darwin_amd64.zip
 /pb_data/
+/pb_migrations/
