@@ -123,7 +123,6 @@ const Map = () => {
 
     return (
         <div>
-            <FoodRating />
             <SearchField onSearch={handleSearch}/>
 
             <div className="location-container">
