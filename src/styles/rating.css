@@ -15,3 +15,23 @@
 .rating-attribute {
     display: flex;
 }
+
+.single-rating {
+    display: flex;
+    flex-direction: column;
+    margin: 0 8px;
+    border-color: var(--color-dark-grey);
+    border-width: 4px;
+    border-style: solid;
+    width: fit-content;
+    background-color: white;
+}
+
+.rating-number {
+    margin: 12px;
+    display: flex;
+    border-radius: 12px;
+    padding: 4px;
+    width: fit-content;
+}
+

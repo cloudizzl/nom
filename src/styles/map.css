@@ -108,11 +108,12 @@
 }
 
 .location-button {
-    width: 35%;
+    width: 40%;
     align-self: end;
     border: 2px solid var(--color-dark-grey);
     border-radius: 12px;
     background-color: white;
+    margin-top: 4px;
 }
 
 .location-button:hover {

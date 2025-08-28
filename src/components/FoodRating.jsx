@@ -33,16 +33,25 @@ const FoodRating = ( {location, onClose } ) => {
         setError('');
 
         try {
-            let locationRecord = await pb.collection('locations').create({
-                place_id: location.place_id,
-                name: location.display_name.split(',')[0],
-                type: location.type,
-                lat: location.lat,
-                lon: location.lon,
-                address: location.address
-            }, {
-                $autoCancel: false
-            });
+            console.log('Searching for location with place_id:', location.place_id);
+            let locationRecord;
+            try {
+                locationRecord = await pb.collection('locations').getFirstListItem(
+                    `place_id = "${location.place_id}"`
+                );
+                console.log('Found existing location:', locationRecord);
+            } catch (e) {
+                console.log('Location not found, creating new one');
+                locationRecord = await pb.collection('locations').create({
+                    place_id: location.place_id,
+                    name: location.display_name.split(',')[0],
+                    type: location.type,
+                    lat: location.lat,
+                    lon: location.lon,
+                    address: location.address
+                });
+                console.log('Created new location:', locationRecord);
+            }
 
             const record = await pb.collection('ratings').create({
                 location: locationRecord.id,

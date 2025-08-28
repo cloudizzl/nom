@@ -1,7 +1,8 @@
 import PocketBase from "pocketbase";
 import { useEffect, useState } from 'react';
+import '../styles/rating.css'
 
-const RatingList = () => {
+const RatingList = ({ location }) => {
     const [ratings, setRatings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,11 +12,15 @@ const RatingList = () => {
             try {
                 setLoading(true);
                 const pb = new PocketBase('http://127.0.0.1:8090');
-                const records = await pb.collection('ratings').getFullList();
+                const records = await pb.collection('ratings').getFullList({
+                    filter: `location = "${location.id}"`,
+                    sort: '-created',
+                    expand: 'user,location'
+                });
                 setRatings(records);
             } catch (error) {
-                setError(error);
-                console.error(error);
+                setError(error.message);
+                console.error('Error fetching ratings:', error);
             } finally {
                 setLoading(false);
             }
@@ -30,17 +35,33 @@ const RatingList = () => {
 
     return (
         <div>
+            <h2>{location.name}</h2>
             <div className="single-rating">
                 {ratings.map((rating) => (
                     <div key={rating.id}>
-                        {rating.taste}
-                        {rating.ambiance}
-                        {rating.foodComa}
-                        {rating.service}
-                        {rating.noise}
-                        {rating.creativity}
+                        <div className="rating-user">
+                            by: {rating.expand.user ? rating.expand.user.username : 'unknown'}
+                        </div>
+                        <div className="rating-number">
+                            taste: {rating.taste}
+                        </div>
+                        <div className="rating-number">
+                            ambiance: {rating.ambiance}
+                        </div>
+                        <div className="rating-number">
+                            food coma: {rating.foodComa}
+                        </div>
+                        <div className="rating-number">
+                            service: {rating.service}
+                        </div>
+                        <div className="rating-number">
+                            noise level: {rating.noise}
+                        </div>
+                        <div className="rating-number">
+                            creativity: {rating.creativity}
+                        </div>
                     </div>
-                ))};
+                ))}
             </div>
         </div>
     )

@@ -4,6 +4,8 @@ import {useEffect, useRef, useState} from "react";
 import "../styles/map.css"
 import Scrollbar from "./Scrollbar";
 import FoodRating from "./FoodRating";
+import RatingList from "./RatingList";
+import {useAuth} from "./AuthContext";import { pb } from "../lib/pocketbase";
 
 const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
 const ICON_MAPPING = {
@@ -23,6 +25,7 @@ const Map = () => {
     const [selectedResult, setSelectedResult] = useState(null);
     const [showRatingComponent, setShowRatingComponent] = useState(false);
     const [currentLocation, setCurrentLocation] = useState(null);
+    const [showRatingsList, setShowRatingsList] = useState(false);
 
     useEffect(() => {
         if (selectedResult && mapRef.current) {
@@ -64,6 +67,18 @@ const Map = () => {
     const handleRatingButtonClick = (location) => {
         setCurrentLocation(location)
         setShowRatingComponent(!showRatingComponent);
+    }
+
+    const handleShowRatings = async (location) => {
+        try {
+            const locationRecord = await pb.collection('locations').getFirstListItem(
+                `place_id = "${location.place_id}"`
+            );
+            setCurrentLocation(locationRecord);
+            setShowRatingsList(!showRatingsList);
+        } catch (error) {
+            console.error('Error fetching location:', error);
+        }
     }
 
     const formatLocation = (location) => {
@@ -125,6 +140,16 @@ const Map = () => {
                 >
                     rate me!
                 </button>
+
+                <button
+                    className="location-button"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleShowRatings(location)
+                    }}
+                >
+                    show ratings!
+                </button>
             </div>
         );
     };
@@ -158,6 +183,9 @@ const Map = () => {
                                 </div>
                             ))}
                         </Scrollbar>
+                        {showRatingsList && (
+                            <RatingList location={currentLocation} />
+                        )}
                         {showRatingComponent && (
                             <FoodRating
                                 location={currentLocation}
