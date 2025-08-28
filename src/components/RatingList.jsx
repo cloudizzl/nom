@@ -24,16 +24,21 @@ const RatingList = () => {
         fetchRatings()
     }, []);
 
-    if (loading) return <div>Lade Bewertungen...</div>;
-    if (error) return <div>Fehler: {error}</div>;
-    if (ratings.length === 0) return <div>Keine Bewertungen gefunden</div>;
+    if (loading) return <div>load ratings...</div>;
+    if (error) return <div>error: {error}</div>;
+    if (ratings.length === 0) return <div>no ratings found</div>;
 
     return (
         <div>
             <div className="single-rating">
                 {ratings.map((rating) => (
                     <div key={rating.id}>
-                        <p>{rating.taste}</p>
+                        {rating.taste}
+                        {rating.ambiance}
+                        {rating.foodComa}
+                        {rating.service}
+                        {rating.noise}
+                        {rating.creativity}
                     </div>
                 ))};
             </div>

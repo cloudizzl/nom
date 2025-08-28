@@ -3,8 +3,13 @@ import StarRating from "./StarRating";
 import {useState} from "react";
 import PocketBase from "pocketbase";
 import starRating from "./StarRating";
+import {useAuth} from "./AuthContext";import { pb } from "../lib/pocketbase";
 
-const FoodRating = () => {
+
+const FoodRating = ( {location, onClose } ) => {
+    const auth = useAuth();
+    const { currentUser } = auth;
+
     const [taste, setTaste] = useState(0);
     const [ambiance, setAmbiance] = useState(0);
     const [foodComa, setFoodComa] = useState(0);
@@ -13,47 +18,62 @@ const FoodRating = () => {
     const [creativity, setCreativity] = useState(0);
     const [image, setImage] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    if (!location) {
+        return <div>Loading location data...</div>
+    }
+
+    if (!currentUser) {
+        return <div>you need to be logged in</div>;
+    }
 
     const saveRatings = async () => {
         setIsLoading(true);
-        
+        setError('');
+
         try {
-            const pb = new PocketBase('http://127.0.0.1:8090');
-            
+            let locationRecord = await pb.collection('locations').create({
+                place_id: location.place_id,
+                name: location.display_name.split(',')[0],
+                type: location.type,
+                lat: location.lat,
+                lon: location.lon,
+                address: location.address
+            }, {
+                $autoCancel: false
+            });
+
             const record = await pb.collection('ratings').create({
-                taste: taste || null,
-                ambiance: ambiance || null,
-                foodComa: foodComa || null,
-                service: service || null,
-                noise: noise || null,
-                creativity: creativity || null,
-                image: image || null,
+                location: locationRecord.id,
+                user: currentUser.id,
+                taste: taste || 0,
+                ambiance: ambiance || 0,
+                foodComa: foodComa || 0,
+                service: service || 0,
+                noise: noise || 0,
+                creativity: creativity || 0,
+                image: image
             });
 
             console.log('saved rating data', record);
             alert('Rating saved successfully');
-            
-            setTaste(0);
-            setAmbiance(0);
-            setFoodComa(0);
-            setService(0);
-            setNoise(0);
-            setCreativity(0);
-            setImage([]);
+            onClose();
         } catch (error) {
             console.error('error saving rating:', error);
-            alert('Error saving rating');
+            setError('Error saving rating: ' + (error.message || 'Unknown error'));
         }
         setIsLoading(false);
     };
 
     const handleImageChange = (e) => {
         setImage(Array.from(e.target.files));
-    }
-
+    };
 
     return (
         <div>
+            {error && <div className="error-message">{error}</div>}
+            <h2>{location.display_name}</h2>
             <div>Rate from 1-5!</div>
             <div className="rating-attribute">
                 Taste

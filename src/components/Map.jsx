@@ -21,6 +21,8 @@ const Map = () => {
     const mapRef = useRef(null);
     const [searchResults, setSearchResults] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null);
+    const [showRatingComponent, setShowRatingComponent] = useState(false);
+    const [currentLocation, setCurrentLocation] = useState(null);
 
     useEffect(() => {
         if (selectedResult && mapRef.current) {
@@ -59,15 +61,21 @@ const Map = () => {
         setSelectedResult(result);
     }
 
+    const handleRatingButtonClick = (location) => {
+        setCurrentLocation(location)
+        setShowRatingComponent(!showRatingComponent);
+    }
+
     const formatLocation = (location) => {
         if (!location.display_name) return "unknown location";
 
+        /* console.log("current location:", location); */
         const typeIcon = ICON_MAPPING[location.type] || "❓";
         const {
             road: street,
             house_number: number,
             suburb: district,
-            borough: county,
+            /* borough: county, */
             city,
             postcode: zip
         } = location.address || {};
@@ -106,6 +114,17 @@ const Map = () => {
                         </div>
                     )}
                 </div>
+
+                <button
+                    className="location-button"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRatingButtonClick(location)
+                        console.log("rate location:", location);
+                    }}
+                >
+                    rate me!
+                </button>
             </div>
         );
     };
@@ -139,13 +158,20 @@ const Map = () => {
                                 </div>
                             ))}
                         </Scrollbar>
+                        {showRatingComponent && (
+                            <FoodRating
+                                location={currentLocation}
+                                onClose={() => {
+                                    console.log("closing component for: ", currentLocation);
+                                    setShowRatingComponent(false)
+                                }}
+                            />)}
                     </div>
                 )}
             </div>
 
             <MapContainer
                 center={[52.5200, 13.4050]}
-                // center={[51.050407, 13.737262]} dd
                 zoom={13}
                 style={{height: '500px', width: '100%'}}
                 ref={mapRef}

@@ -10,7 +10,6 @@ function Home() {
     return (
         <main>
             <RatingList />
-            <FoodRating />
             <h1>Willkommen auf der Home-Seite</h1>
             <Map />
         </main>

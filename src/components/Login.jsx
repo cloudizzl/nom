@@ -2,6 +2,7 @@ import {useState} from "react";
 import {pb} from "../lib/pocketbase";
 import {useNavigate} from "react-router-dom";
 import "../styles/login.css";
+import {useAuth} from "./AuthContext";
 
 const Login = () => {
     const [identity, setIdentity] = useState('');
@@ -10,6 +11,8 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+
+    const  { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,32 +26,37 @@ const Login = () => {
         setLoading(true);
 
         try {
-            await pb.collection('users').authWithPassword(identity, password);
+            const result = await login(identity, password);
 
-            navigate("/home");
-            console.log("Successfully logged in", identity);
-        } catch (authError) {
-            console.log("Direct auth failed, trying fallback...", authError);
-
-            try {
-                const users = await pb.collection('users').getList(1, 1, {
-                    filter: `username = "${identity}" || email = "${identity}"`,
-                    $autoCancel: false
-                });
-
-                if (users.items.length === 0) {
-                    throw new Error("User not found");
-                }
-
-                const user = users.items[0];
-                await pb.collection('users').authWithPassword(user.email, password);
-                navigate("/home");
-            } catch (error) {
-                console.log("Login error:", error.data);
-                setError(error.data?.message || "Invalid username or password");
-            } finally {
-                setLoading(false);
+            if (result.success) {
+                navigate("/");
+                console.log("Successfully logged in", identity);
+                return;
             }
+            console.log("Direct auth failed, trying fallback...", result.error);
+
+            const users = await pb.collection('users').getList(1, 1, {
+                filter: `username = "${identity}" || email = "${identity}"`,
+                $autoCancel: false
+            });
+
+            if (users.items.length === 0) {
+                throw new Error("User not found");
+            }
+
+            const user = users.items[0];
+            const fallbackResult = await login(user.email, password);
+
+            if (fallbackResult.success) {
+                navigate("/home");
+            } else {
+                throw new Error("Invalid password");
+            }
+        } catch (error) {
+            console.log("Login error:", error);
+            setError(error.message || "Invalid username or password");
+        } finally {
+            setLoading(false);
         }
     };
 
