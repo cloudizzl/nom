@@ -71,15 +71,13 @@ const Map = () => {
 
     const handleShowRatings = async (location) => {
         try {
-            const locationRecord = await pb.collection('locations').getFirstListItem(
-                `place_id = "${location.place_id}"`
-            );
+            const locationRecord = await getOrCreateLocation(location);
             setCurrentLocation(locationRecord);
-            setShowRatingsList(!showRatingsList);
+            setShowRatingsList(true);
         } catch (error) {
-            console.error('Error fetching location:', error);
+            console.error('Error handling location:', error);
         }
-    }
+    };
 
     const formatLocation = (location) => {
         if (!location.display_name) return "unknown location";

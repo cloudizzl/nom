@@ -1,10 +1,10 @@
 import React from 'react'
-import Timeline from "../components/Timeline";
+import RatingsTimeline from "../components/RatingsTimeline";
 
 function TimelinePage() {
     return (
         <main>
-            <Timeline />
+            <RatingsTimeline />
         </main>
     )
 }

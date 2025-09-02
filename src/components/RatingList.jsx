@@ -1,70 +1,62 @@
-import PocketBase from "pocketbase";
 import { useEffect, useState } from 'react';
-import '../styles/rating.css'
+import RatingsService from './RatingsService';
+import '../styles/rating.css';
 
 const RatingList = ({ location }) => {
-    const [ratings, setRatings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { ratings: allRatings, loading, error } = RatingsService();
+    const locationRatings = allRatings.filter(rating =>
+        rating.location === location.id || rating.expand?.location?.id === location.id
+    );
 
-    useEffect(() => {
-        const fetchRatings = async () => {
-            try {
-                setLoading(true);
-                const pb = new PocketBase('http://127.0.0.1:8090');
-                const records = await pb.collection('ratings').getFullList({
-                    filter: `location = "${location.id}"`,
-                    sort: '-created',
-                    expand: 'user,location'
-                });
-                setRatings(records);
-            } catch (error) {
-                setError(error.message);
-                console.error('Error fetching ratings:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRatings()
-    }, []);
-
-    if (loading) return <div>load ratings...</div>;
-    if (error) return <div>error: {error}</div>;
-    if (ratings.length === 0) return <div>no ratings found</div>;
+    if (loading) return <div>Loading ratings...</div>;
+    if (error) return <div>Error: {error}</div>;
+    if (locationRatings.length === 0) return <div>No ratings found</div>;
 
     return (
-        <div>
+        <div className="ratings-container">
             <h2>{location.name}</h2>
-            <div className="single-rating">
-                {ratings.map((rating) => (
-                    <div key={rating.id}>
-                        <div className="rating-user">
-                            by: {rating.expand.user ? rating.expand.user.username : 'unknown'}
+            <div className="ratings-list">
+                {locationRatings.map((rating) => (
+                    <div key={rating.id} className="rating-card">
+                        <div className="rating-header">
+                            <div className="rating-user">
+                                by {rating.expand?.user?.username || 'unknown'}
+                            </div>
+                            <div className="rating-date">
+                                {new Date(rating.created).toLocaleDateString()}
+                            </div>
                         </div>
-                        <div className="rating-number">
-                            taste: {rating.taste}
-                        </div>
-                        <div className="rating-number">
-                            ambiance: {rating.ambiance}
-                        </div>
-                        <div className="rating-number">
-                            food coma: {rating.foodComa}
-                        </div>
-                        <div className="rating-number">
-                            service: {rating.service}
-                        </div>
-                        <div className="rating-number">
-                            noise level: {rating.noise}
-                        </div>
-                        <div className="rating-number">
-                            creativity: {rating.creativity}
+                        <div className="rating-details">
+                            <div className="rating-item">
+                                <span className="rating-label">Taste:</span>
+                                <span className="rating-value">{rating.taste || 'N/A'}</span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Ambiance:</span>
+                                <span className="rating-value">{rating.ambiance || 'N/A'}</span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Food Coma:</span>
+                                <span className="rating-value">{rating.foodComa || 'N/A'}</span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Service:</span>
+                                <span className="rating-value">{rating.service || 'N/A'}</span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Noise Level:</span>
+                                <span className="rating-value">{rating.noise || 'N/A'}</span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Creativity:</span>
+                                <span className="rating-value">{rating.creativity || 'N/A'}</span>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-    )
+    );
 };
 
 export default RatingList;
