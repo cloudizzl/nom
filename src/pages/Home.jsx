@@ -1,15 +1,24 @@
 import React from 'react'
 import Map from "../components/Map";
-import Registration from "../components/Registration";
-import SearchField from "../components/SearchField";
-import FoodRating from "../components/FoodRating";
-import RatingList from "../components/RatingList";
+import {useAuth} from "../components/AuthContext";
+import {Navigate} from "react-router-dom";
 
 
 function Home() {
+    const { currentUser } = useAuth();
+
+    if (!currentUser) {
+        return (
+            <main>
+                <h1>hi, you are currently logged out ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h1>
+                <Map />
+            </main>
+        )
+    }
+
     return (
         <main>
-            <h1>Willkommen auf der Home-Seite</h1>
+            <h1>hi, {currentUser.username}  ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h1>
             <Map />
         </main>
     )
