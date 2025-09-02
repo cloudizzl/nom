@@ -7,6 +7,7 @@ import "./styles/global.css"
 import './styles/variables.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthContext";
+import TimelinePage from "./pages/TimelinePage";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/about" element={<About/>}/>
+                    <Route path="/timeline" element={<TimelinePage/>}/>
                 </Routes>
 
             </BrowserRouter>

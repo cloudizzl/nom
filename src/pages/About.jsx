@@ -1,7 +1,14 @@
 import React from 'react'
 
 function About() {
-    return <h1>Über diese Seite</h1>
+    return (
+        <main>
+            <div>created by cloud</div>
+            <div>
+                <a href="https://github.com/cloudizzl">github</a>
+            </div>
+        </main>
+    )
 }
 
 export default About

@@ -14,6 +14,7 @@ function Navbar() {
                     <li><Link className="nav-link" to="/login">Login</Link></li>
                     <li><Link className="nav-link" to="/">Home</Link></li>
                     <li><Link className="nav-link" to="/about">About</Link></li>
+                    <li><Link className="nav-link" to="/timeline">Timeline</Link></li>
                 </ul>
                 <Logout />
             </nav>
@@ -26,6 +27,7 @@ function Navbar() {
             <ul className="nav-links">
                 <li><Link className="nav-link" to="/">Home</Link></li>
                 <li><Link className="nav-link" to="/about">About</Link></li>
+                <li><Link className="nav-link" to="/timeline">Timeline</Link></li>
             </ul>
             <Logout />
         </nav>
