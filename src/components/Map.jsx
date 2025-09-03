@@ -5,7 +5,7 @@ import "../styles/map.css"
 import Scrollbar from "./Scrollbar";
 import FoodRating from "./FoodRating";
 import RatingList from "./RatingList";
-import {useAuth} from "./AuthContext";import { pb } from "../lib/pocketbase";
+import { getOrCreateLocation } from './RatingsService';
 
 const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
 const ICON_MAPPING = {
@@ -62,18 +62,28 @@ const Map = () => {
 
     const handleResultClick = (result) => {
         setSelectedResult(result);
+        setShowRatingComponent(false);
+        setShowRatingsList(false);
     }
 
-    const handleRatingButtonClick = (location) => {
-        setCurrentLocation(location)
-        setShowRatingComponent(!showRatingComponent);
+    const handleRatingButtonClick = async (location) => {
+        try {
+            const locationRecord = await getOrCreateLocation(location);
+            setCurrentLocation(locationRecord);
+            setShowRatingComponent(true);
+            setShowRatingsList(false);
+        } catch (error) {
+            console.error('Error handling location:', error);
+        }
     }
+
 
     const handleShowRatings = async (location) => {
         try {
             const locationRecord = await getOrCreateLocation(location);
             setCurrentLocation(locationRecord);
             setShowRatingsList(true);
+            setShowRatingComponent(false);
         } catch (error) {
             console.error('Error handling location:', error);
         }

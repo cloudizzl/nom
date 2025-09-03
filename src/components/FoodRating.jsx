@@ -4,6 +4,7 @@ import {useState} from "react";
 import PocketBase from "pocketbase";
 import starRating from "./StarRating";
 import {useAuth} from "./AuthContext";import { pb } from "../lib/pocketbase";
+import {getOrCreateLocation} from "./RatingsService";
 
 
 const FoodRating = ( {location, onClose } ) => {
@@ -28,30 +29,24 @@ const FoodRating = ( {location, onClose } ) => {
         return <div>you need to be logged in</div>;
     }
 
+    const getLocationName = () => {
+        if (location.display_name) {
+            // OSM location
+            return location.display_name.split(',')[0];
+        } else if (location.name) {
+            // PocketBase location
+            return location.name;
+        }
+        return "Unknown Location";
+    };
+
     const saveRatings = async () => {
         setIsLoading(true);
         setError('');
 
         try {
-            console.log('Searching for location with place_id:', location.place_id);
-            let locationRecord;
-            try {
-                locationRecord = await pb.collection('locations').getFirstListItem(
-                    `place_id = "${location.place_id}"`
-                );
-                console.log('Found existing location:', locationRecord);
-            } catch (e) {
-                console.log('Location not found, creating new one');
-                locationRecord = await pb.collection('locations').create({
-                    place_id: location.place_id,
-                    name: location.display_name.split(',')[0],
-                    type: location.type,
-                    lat: location.lat,
-                    lon: location.lon,
-                    address: location.address
-                });
-                console.log('Created new location:', locationRecord);
-            }
+            const locationRecord = await getOrCreateLocation(location);
+            console.log('Using location:', locationRecord);
 
             const record = await pb.collection('ratings').create({
                 location: locationRecord.id,
@@ -82,7 +77,7 @@ const FoodRating = ( {location, onClose } ) => {
     return (
         <div>
             {error && <div className="error-message">{error}</div>}
-            <h2>{location.display_name}</h2>
+            <h2>{getLocationName()}</h2>
             <div>Rate from 1-5!</div>
             <div className="rating-attribute">
                 Taste
