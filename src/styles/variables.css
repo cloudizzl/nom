@@ -1,10 +1,37 @@
 :root {
     --color-background: #FAF6ED;
     --color-blue: #265281;
-    --color-black: #1d1d1f;
+    --color-black: #333;
     --color-grey: #f5f5f7;
     --color-dark-grey: #8b8c89;
     --color-beige: #c3bca8;
     --color-beige-light: #e0dcd3;
     --color-green: #bbc451;
+    --color-clay: #f9f8f4;
+    --color-coffee: #6C5A4A;
+    --color-sage: #C9CCBD;
+    --color-moss: #8A9B6E;
+    --color-cream: #f8f3e9;
+
+    --shadow-soft: 0 4px 12px rgba(108, 90, 74, 0.08);
+    --shadow-hover: 0 6px 16px rgba(108, 90, 74, 0.12);
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.8rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.2rem;
+    --spacing-xxl: 1.5rem;
+    --spacing-container: 2rem;
+
+    --text-xs: 0.7rem;
+    --text-sm: 0.75rem;
+    --text-md: 0.8rem;
+    --text-base: 0.85rem;
+    --text-lg: 0.9rem;
+    --text-xl: 1.8rem;
+
+    --card-max-width: 280px;
+    --border-width: 1px;
 }

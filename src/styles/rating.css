@@ -1,37 +1,131 @@
-.star-rating-container {
-    background-color: var(--color-green);
-    display: inline-flex;
-    margin-left: auto;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    padding: 4px;
+.ratings-container {
+    background-color: var(--color-clay);
+    padding: var(--spacing-container);
+    border-radius: 8px;
+    border: 2px solid var(--color-dark-grey);
+}
+
+.ratings-container h2 {
+    color: var(--color-coffee);
+    margin-top: 0;
+    margin-bottom: var(--spacing-xxl);
+    font-size: var(--text-xl);
+    text-align: center;
+}
+
+.ratings-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xxl);
+    justify-content: center;
+}
+
+.rating-card {
+    padding: var(--spacing-xl);
+    background-color: var(--color-cream);
+    border-radius: 2px;
+    max-width: var(--card-max-width);
+    font-size: var(--text-base);
+    box-shadow: var(--shadow);
+    position: relative;
+    background-image:
+            linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: var(--border-width) solid var(--color-beige-light);
+}
+
+.rating-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-dark-grey);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+}
+
+.receipt-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-coffee);
+    font-size: var(--text-sm);
+}
+
+.receipt-number {
+    color: var(--color-dark-grey);
+    font-size: var(--text-xs);
+}
+
+.receipt-date {
+    text-align: center;
+    color: var(--color-coffee);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--text-md);
+}
+
+.rating-details {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.rating-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) 0;
+    border-bottom: var(--border-width) dotted var(--color-dark-grey)
+}
+
+.rating-label {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color-coffee);
+    font-size: var(--text-md);
+}
+
+.stars-column {
+    display: flex;
+}
+
+.receipt-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: var(--border-width) dashed var(--color-dark-grey);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    font-size: var(--text-md);
+}
+
+.receipt-user {
+    color: var(--color-coffee);
+}
+
+.receipt-time {
+    color: var(--color-dark-grey);
+}
+
+.perforation-line {
+    text-align: center;
+    color: var(--color-dark-grey);
+    border-top: 1px dashed var(--color-dark-grey);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-xs);
+    letter-spacing: 2px;
+    font-size: var(--text-xs);
+    border-top: var(--border-width) dashed var(--color-dark-grey);
 }
 
 .star-rating {
     background-color: transparent;
     border: none;
+    color: var(--color-moss);
+    font-size: var(--text-lg);
+    padding: 0 var(--spacing-xs);
 }
-
-.rating-attribute {
-    display: flex;
-}
-
-.single-rating {
-    display: flex;
-    flex-direction: column;
-    margin: 0 8px;
-    border-color: var(--color-dark-grey);
-    border-width: 4px;
-    border-style: solid;
-    width: fit-content;
-    background-color: white;
-}
-
-.rating-number {
-    margin: 12px;
-    display: flex;
-    border-radius: 12px;
-    padding: 4px;
-    width: fit-content;
-}
-

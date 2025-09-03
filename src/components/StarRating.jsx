@@ -1,33 +1,44 @@
 import '../styles/rating.css'
-import {useId, useState} from "react";
+import {useState} from "react";
 
 const StarRating = ({ rating, setRating }) => {
     const [hover, setHover] = useState(null);
-
-    /* console.log('current rating:', rating, 'current hover:', hover); */
+    const isInteractive = !!setRating;
 
     return (
         <div className="star-rating-container">
             <div>
                 {[1, 2, 3, 4, 5].map((star) => {
+                    // Determine if this star should be filled
+                    const isFilled = star <= (hover || rating || 0);
+
                     return (
                         <button
+                            type="button"
                             className="star-rating"
                             key={star}
+                            data-selected={isFilled}
                             onClick={() => {
-                                /* console.log('clicked on star:', star); */
-                                setRating(star);
+                                if (isInteractive) {
+                                    /* console.log('clicked on star:', star); */
+                                    setRating(star);
+                                }
                             }}
                             onMouseEnter={() => {
-                                /* console.log('hovered over star:', star); */
-                                setHover(star);
+                                if (isInteractive) {
+                                    /* console.log('hovered over star:', star); */
+                                    setHover(star);
+                                }
                             }}
                             onMouseLeave={() => {
-                                /* console.log('left star:', hover); */
-                                setHover(0);
+                                if (isInteractive) {
+                                    /* console.log('left star:', hover); */
+                                    setHover(null);
+                                }
                             }}
+                            disabled={!isInteractive}
                         >
-                            { star <= (hover || rating ) ? "★" : "☆"}
+                            {isFilled ? "★" : "☆"}
                         </button>
                     )
                 })}
