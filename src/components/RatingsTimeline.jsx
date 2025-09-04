@@ -38,6 +38,19 @@ const RatingTimeline = () => {
                                 <div>Service: {rating.service || 'N/A'}</div>
                                 <div>Noise: {rating.noise || 'N/A'}</div>
                                 <div>Creativity: {rating.creativity || 'N/A'}</div>
+                                <div className="image-grid">
+                                    {rating.image.map((img, index) => (
+                                        <img
+                                            key={index}
+                                            src={`http://127.0.0.1:8090/api/files/ratings/${rating.id}/${img}`}
+                                            alt={`Rating ${index + 1}`}
+                                            className="rating-image"
+                                        />
+                                    ))}
+                                </div>
+                                <div>
+                                    Comments: {rating.comment ? rating.comment : 'No comments'}
+                                </div>
                             </div>
                         </div>
                     ))}

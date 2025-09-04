@@ -7,7 +7,7 @@ import FoodRating from "./FoodRating";
 import RatingList from "./RatingList";
 import { getOrCreateLocation } from './RatingsService';
 
-const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub'];
+const VALID_TYPES = ['cafe', 'restaurant', 'fast_food', 'ice_cream', 'bar', 'biergarten', 'food_court', 'pub', 'bakery'];
 const ICON_MAPPING = {
     cafe: '🍵',
     restaurant: '🍷',
@@ -16,7 +16,8 @@ const ICON_MAPPING = {
     bar: '🥃',
     biergarten: '🍺',
     food_court: '🍱',
-    pub: '🥃'
+    pub: '🥃',
+    bakery: '🍞'
 };
 
 const Map = () => {
