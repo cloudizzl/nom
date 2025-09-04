@@ -36,8 +36,8 @@ const RatingTimeline = () => {
                                 <div>Ambiance: {rating.ambiance || 'N/A'}</div>
                                 <div>Food Coma: {rating.foodComa || 'N/A'}</div>
                                 <div>Service: {rating.service || 'N/A'}</div>
-                                <div>Noise: {rating.noise || 'N/A'}</div>
                                 <div>Creativity: {rating.creativity || 'N/A'}</div>
+                                <div>Noise: {rating.noise || 'N/A'}</div>
                                 <div className="image-grid">
                                     {rating.image.map((img, index) => (
                                         <img
@@ -49,7 +49,7 @@ const RatingTimeline = () => {
                                     ))}
                                 </div>
                                 <div>
-                                    Comments: {rating.comment ? rating.comment : 'No comments'}
+                                    Comment: {rating.comment ? rating.comment : 'No comments'}
                                 </div>
                             </div>
                         </div>

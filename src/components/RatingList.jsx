@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import RatingsService from './RatingsService';
 import '../styles/rating.css';
 import StarRating from "./StarRating";
+import VolumeBar from "./VolumeBar";
 
 const RatingList = ({location}) => {
     const {ratings: allRatings, loading, error} = RatingsService();
@@ -60,16 +61,22 @@ const RatingList = ({location}) => {
                                 </span>
                             </div>
                             <div className="rating-item">
-                                <span className="rating-label">Noise Level:</span>
-                                <span className="stars-column">
-                                    <StarRating rating={rating.noise}/>
-                                </span>
-                            </div>
-                            <div className="rating-item">
                                 <span className="rating-label">Creativity:</span>
                                 <span className="stars-column">
                                     <StarRating rating={rating.creativity}/>
                                 </span>
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Noise Level:</span>
+                                <VolumeBar
+                                    volume={rating.noise}
+                                    max={5}
+                                    step={0.5}
+                                />
+                            </div>
+                            <div className="rating-item">
+                                <span className="rating-label">Comment:</span>
+                                <span>{rating.comment}</span>
                             </div>
                         </div>
 
