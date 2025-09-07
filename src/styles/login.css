@@ -8,10 +8,10 @@
 
 .login-container {
     display: flex;
-    flex-direction: column; /* stack elements */
-    justify-content: center; /* horizontal */
-    align-items: center; /* vertical */
-    min-height: 80vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*min-height: 80vh;*/
     margin: 0;
 }
 

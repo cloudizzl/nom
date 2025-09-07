@@ -11,6 +11,9 @@ function Home() {
         return (
             <main>
                 <h1>hi, you are currently logged out ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h1>
+                <div className="text">
+                    search for a food spot and rate it! (you need to be logged in for that)
+                </div>
                 <Map />
             </main>
         )
@@ -19,6 +22,9 @@ function Home() {
     return (
         <main>
             <h1>hi, {currentUser.username}  ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h1>
+            <div className="text">
+                search for a food spot and rate it!
+            </div>
             <Map />
         </main>
     )

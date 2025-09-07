@@ -175,7 +175,7 @@ const Map = () => {
     };
 
     return (
-        <div>
+        <div className="map-container">
             <SearchField onSearch={handleSearch}/>
 
             <div className="location-container">

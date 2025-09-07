@@ -40,4 +40,8 @@ body {
     padding-bottom: 10px;
 }
 
-
+.text {
+    font-size: var(--text-lg);
+    color: var(--color-coffee);
+    margin-bottom: var(--spacing-xxl);
+}
