@@ -1,5 +1,6 @@
 import Login from "../components/Login";
 import React from "react";
+import Registration from "../components/Registration";
 
 const LoginPage = () => {
     return (
@@ -30,6 +31,8 @@ const LoginPage = () => {
                 </div>
             </div>
             <Login />
+
+            <Registration />
         </div>
 
     )

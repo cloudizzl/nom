@@ -1,18 +1,56 @@
-/.idea/
+# --- IDE & Editor Files ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- OS Generated Files ---
 .DS_Store
-node_modules/
-.npm
-.pnpm
-*.log
-.env
-.env.local
-.env*.local
+.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-/CHANGELOG.md
-/LICENSE.md
-/pocketbase
-/pocketbase_0.22.4_darwin_amd64.zip
-/pb_data/
-/pb_migrations/
+ehthumbs.db
+Thumbs.db
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.pnpm/
+.pnpm-store/
+
+# --- Environment Variables ---
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- PocketBase Specific ---
+pb_data/
+backend/
+pb_migrations/
+
+# --- Build Outputs ---
+dist/
+build/
+*.tgz
+*.tar.gz
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Runtime ---
+*.pid
+*.seed
+*.pid.lock
+
+# --- Coverage ---
+coverage/
+.nyc_output/
