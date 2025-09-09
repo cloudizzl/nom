@@ -32,7 +32,6 @@ const LoginPage = () => {
             </div>
             <Login />
 
-            <Registration />
         </div>
 
     )

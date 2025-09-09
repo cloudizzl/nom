@@ -32,7 +32,6 @@ yarn-error.log*
 .env.production.local
 
 # --- PocketBase Specific ---
-pb_data/
 backend/
 pb_migrations/
 
