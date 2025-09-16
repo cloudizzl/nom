@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { pb } from "../lib/pocketbase";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "../styles/login.css";
 import { useAuth } from "./AuthContext";
 
@@ -107,11 +107,11 @@ const Login = () => {
                 </div>
 
                 <div className="forgot-password">
-                    <a href="/forgot-password">forgot password?</a>
+                    <Link to="/forgot-password">forgot password?</Link>
                 </div>
 
                 <div className="forgot-password">
-                    <a href="/register">no account yet?</a>
+                    <Link to="/register">no account yet?</Link>
                 </div>
 
                 <button
