@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {pb} from "../lib/pocketbase";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Registration = () => {
     const [email, setEmail] = useState("");
@@ -105,7 +105,7 @@ const Registration = () => {
                     </div>
 
                     <div className="forgot-password">
-                        <a href="/login">already have an account?</a>
+                        <Link to="/login">already have an account?</Link>
                     </div>
 
                     <button
