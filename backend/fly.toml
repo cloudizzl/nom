@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for nom-backend on 2025-09-12T16:28:04+02:00
+# fly.toml app configuration file generated for nom-backend on 2025-09-16T14:24:03+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -6,22 +6,24 @@
 app = 'nom-backend'
 primary_region = 'fra'
 
+[mounts]
+destination = "/pb/pb_data"
+source = "pb_data"
+
 [build]
   dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = false
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
+    [http_service.concurrency]
+    type = "requests"
+    soft_limit = 500
+    hard_limit = 550
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
-
-[[mounts]]
-    source = 'pb_data'
-    destination = '/pb_data'
+  size = 'shared-cpu-1x'

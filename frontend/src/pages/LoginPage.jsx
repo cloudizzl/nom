@@ -31,6 +31,7 @@ const LoginPage = () => {
                 </div>
             </div>
             <Login />
+            <Registration />
 
         </div>
 
