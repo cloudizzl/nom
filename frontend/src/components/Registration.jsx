@@ -68,7 +68,7 @@ const Registration = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="email"
-                            disabled={loading}
+                            disabled={isLoading}
                         />
                     </div>
 
@@ -79,7 +79,7 @@ const Registration = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="username"
-                            disabled={loading}
+                            disabled={isLoading}
                         />
                     </div>
 
@@ -90,7 +90,7 @@ const Registration = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="password"
-                            disabled={loading}
+                            disabled={isLoading}
                         />
                     </div>
                     <div className="login-field password-container">
@@ -100,9 +100,14 @@ const Registration = () => {
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                             placeholder="confirm password"
-                            disabled={loading}
+                            disabled={isLoading}
                         />
                     </div>
+
+                    <div className="forgot-password">
+                        <a href="/login">already have an account?</a>
+                    </div>
+
                     <button
                         className="show-password-button"
                         type="button"

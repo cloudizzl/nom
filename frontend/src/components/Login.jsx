@@ -110,6 +110,10 @@ const Login = () => {
                     <a href="/forgot-password">forgot password?</a>
                 </div>
 
+                <div className="forgot-password">
+                    <a href="/register">no account yet?</a>
+                </div>
+
                 <button
                     className="login-button"
                     type="submit"

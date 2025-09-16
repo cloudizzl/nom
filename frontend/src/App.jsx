@@ -8,6 +8,7 @@ import './styles/variables.css';
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider} from "./components/AuthContext";
 import TimelinePage from "./pages/TimelinePage";
+import Register from "./pages/Register";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/about" element={<About/>}/>
                     <Route path="/timeline" element={<TimelinePage/>}/>
+                    <Route path="/register" element={<Register/>}/>
                 </Routes>
 
             </BrowserRouter>
