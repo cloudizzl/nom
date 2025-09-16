@@ -1,6 +1,5 @@
 import Login from "../components/Login";
 import React from "react";
-import Registration from "../components/Registration";
 
 const LoginPage = () => {
     return (

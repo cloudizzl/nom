@@ -3,8 +3,11 @@ import React from "react";
 
 const Register = () => {
     return (
-        <Registration />
-    )
+        <div>
+            <h1>Register</h1>
+            <Registration />
+        </div>
+    );
 }
 
 export default Register;
