@@ -1,3 +1,7 @@
+.logo-link {
+    text-decoration: none;
+}
+
 .navbar {
     width: 100%;
     display: flex;

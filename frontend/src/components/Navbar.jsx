@@ -9,21 +9,24 @@ function Navbar() {
     if (!currentUser) {
         return (
             <nav className="navbar">
-                <h2 className="logo">NOM</h2>
+                <Link className="logo-link" to="/">
+                    <h2 className="logo">NOM</h2>
+                </Link>
                 <ul className="nav-links">
-                    <li><Link className="nav-link" to="/login">Login</Link></li>
-                    <li><Link className="nav-link" to="/">Home</Link></li>
-                    <li><Link className="nav-link" to="/about">About</Link></li>
-                    <li><Link className="nav-link" to="/timeline">Timeline</Link></li>
+                    <Link className="nav-link" to="/login">Login</Link>
+                    <Link className="nav-link" to="/">Home</Link>
+                    <Link className="nav-link" to="/about">About</Link>
+                    <Link className="nav-link" to="/timeline">Timeline</Link>
                 </ul>
-                <Logout />
             </nav>
         );
     }
 
     return (
         <nav className="navbar">
-            <h2 className="logo">NOM</h2>
+            <Link className="logo-link" to="/">
+                <h2 className="logo">NOM</h2>
+            </Link>
             <ul className="nav-links">
                 <li><Link className="nav-link" to="/">Home</Link></li>
                 <li><Link className="nav-link" to="/about">About</Link></li>

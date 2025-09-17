@@ -26,7 +26,10 @@ const RatingTimeline = () => {
                     <h2>{monthYear}</h2>
                     {monthRatings.map((rating) => (
                         <div key={rating.id} className="timeline-item">
-                            <div className="timeline-header">
+                            <div className="timeline-header" style={{
+                                display: 'flex',
+                                gap: '5px'
+                            }}>
                                 <span>{rating.expand?.location?.name || 'Unknown Location'}</span>
                                 <span>{new Date(rating.created).toLocaleDateString()}</span>
                                 <span>by {rating.expand?.user?.username || 'unknown'}</span>
@@ -45,12 +48,15 @@ const RatingTimeline = () => {
                                             src={`https://nom-backend.fly.dev/api/files/ratings/${rating.id}/${img}`}
                                             alt={`Rating ${index + 1}`}
                                             className="rating-image"
+                                            style={{
+                                                maxWidth: '100%',
+                                                height: 'auto',
+                                                width: '300px'
+                                            }}
                                         />
                                     ))}
                                 </div>
-                                <div>
-                                    Comment: {rating.comment ? rating.comment : 'No comments'}
-                                </div>
+                                <span>Comment: {rating.comment ? rating.comment : 'No comments'}</span>
                             </div>
                         </div>
                     ))}

@@ -128,7 +128,7 @@
     background-color: transparent;
     border: none;
     color: var(--color-moss);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     padding: 0 var(--spacing-xs);
 }
 
@@ -215,7 +215,8 @@
 }
 
 .picture-input {
-    margin: var(--spacing-lg) 0;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
     padding: var(--spacing-md);
     background-color: var(--color-cream);
     border: 2px dashed var(--color-dark-grey);
@@ -253,7 +254,6 @@
     transform: none;
 }
 
-/* Zusätzliche Styles für die Volume Bar */
 .volume-container {
     display: flex;
     flex-direction: column;
@@ -330,4 +330,9 @@
     font-size: var(--text-xs);
     color: var(--color-dark-grey);
     margin-top: var(--spacing-xs);
+}
+
+.comment {
+    max-width: 98%;
+    min-width: 98%;
 }

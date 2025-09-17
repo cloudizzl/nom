@@ -205,9 +205,9 @@ const FoodRating = ({location, onClose}) => {
                         id="image-upload"
                         accept="image/*"
                     />
-                    <label htmlFor="image-upload" className="picture-label">
+                    {/*<label htmlFor="image-upload" className="picture-label">
                         {image.length > 0 ? 'change photos' : 'add photos (optional)'}
-                    </label>
+                    </label>*/}
                 </div>
 
                 {image.length > 0 && (
