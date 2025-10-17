@@ -7,3 +7,6 @@ A web app for saving and reviewing food spots with friends.
 - React + Vite
 - Leaflet.js (OpenStreetMap)
 - PocketBase
+
+## Demo
+https://cloudizzl.netlify.app
